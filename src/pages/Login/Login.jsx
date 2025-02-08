@@ -1,18 +1,32 @@
 import "./Login.css";
 import { useState } from "react";
 import assets from "../../assets/assets.js";
+import { signup } from "../../config/firebase";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    if (currentState === "Sign Up") {
+      signup(username, email, password);
+      console.log(username, email, password);
+    }
+  };
 
   return (
     <>
       <div className="login">
         <img src={assets.logo_big} alt="logo" className="logo" />
-        <form className="login-form">
+        <form onSubmit={onSubmitHandler} className="login-form">
           <h2>{currentState}</h2>
           {currentState === "Sign Up" ? (
             <input
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
               type="text"
               placeholder="Username"
               required
@@ -20,12 +34,16 @@ const Login = () => {
             />
           ) : null}
           <input
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             type="email"
             placeholder="Email"
             required
             className="form-input"
           />
           <input
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             type="password"
             placeholder="Password"
             required
@@ -36,7 +54,7 @@ const Login = () => {
           {currentState === "Sign Up" ? (
             <>
               <div className="login-term">
-                <input type="checkbox" />
+                <input type="checkbox" required />
                 <p>Agree to the terms of use & privacy policy</p>
               </div>
             </>
