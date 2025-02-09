@@ -1,7 +1,7 @@
 import "./Login.css";
 import { useState } from "react";
 import assets from "../../assets/assets.js";
-import { signup } from "../../config/firebase";
+import { signup, login } from "../../config/firebase";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
@@ -14,6 +14,8 @@ const Login = () => {
     if (currentState === "Sign Up") {
       signup(username, email, password);
       console.log(username, email, password);
+    } else {
+      login(email, password);
     }
   };
 
