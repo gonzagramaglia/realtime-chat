@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
@@ -58,4 +59,19 @@ const login = async (email, password) => {
   }
 };
 
-export { signup, login };
+const logout = async () => {
+  try {
+    await signOut(auth);
+  } catch (err) {
+    console.error(err);
+    toast.error(
+      err.code
+        .split("/")[1]
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
+    );
+  }
+};
+
+export { signup, login, logout, auth, db };
