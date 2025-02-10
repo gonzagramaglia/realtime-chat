@@ -13,7 +13,6 @@ const Login = () => {
     e.preventDefault();
     if (currentState === "Sign Up") {
       signup(username, email, password);
-      console.log(username, email, password);
     } else {
       login(email, password);
     }
